@@ -4,6 +4,7 @@ package luisQuiroz.BE_W5_D3.controller;
 import luisQuiroz.BE_W5_D3.entities.Author;
 import luisQuiroz.BE_W5_D3.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,16 +47,20 @@ public class AuthorController {
 //    }
 
 
+//--------------------------------------------ESERCIZIO MERCOLEDI------------------------------------------------------
+
     // * GET tutti gli autori
     @GetMapping
-    public List<Author> findAllAuthors() {
-        return this.authorService.findAll();
+    // cosa incredibilmente utile per evitare di sovraccaricare il response
+    public Page<Author> findAllAuthors(@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "5") int size) {
+        return this.authorService.findAll(page, size);
     }
 
     // * GET singolo autore
     @GetMapping("/{authorId}")
     // Spring gestisce da solo il problema dell'UUID trasformandolo in una stringa
-    public Author findById(@PathVariable UUID authorId){
+    public Author findById(@PathVariable UUID authorId) {
         return this.authorService.findById(authorId);
     }
 
@@ -68,7 +73,7 @@ public class AuthorController {
 
     // * PUT modifica autore per id
     @PutMapping("/{authorId}")
-    public Author findAndUpdate(@PathVariable UUID authorId, @RequestBody Author body){
+    public Author findAndUpdate(@PathVariable UUID authorId, @RequestBody Author body) {
         return this.authorService.findAndUpdate(authorId, body);
     }
 
@@ -76,7 +81,7 @@ public class AuthorController {
     // * DELETE elimina autore per id
     @DeleteMapping("/{authorId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void findAndDelete(@PathVariable UUID authorId){
+    public void findAndDelete(@PathVariable UUID authorId) {
         this.authorService.findAndDelete(authorId);
     }
 

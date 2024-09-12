@@ -7,6 +7,9 @@ import luisQuiroz.BE_W5_D3.exceptions.BadRequestException;
 import luisQuiroz.BE_W5_D3.exceptions.NotFoundException;
 import luisQuiroz.BE_W5_D3.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -55,8 +58,12 @@ public class AuthorService {
     // ----------------------------------------esercizio di mercoledì-----------------------------------------------------
 
 
-    public List<Author> findAll(){
-        return this.authorRepository.findAll();
+    public Page<Author> findAll(int page, int size){
+        // return this.authorRepository.findAll();  // NON ci piace così.
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return this.authorRepository.findAll(pageable);
     }
 
     public Author findById(UUID authorId){
