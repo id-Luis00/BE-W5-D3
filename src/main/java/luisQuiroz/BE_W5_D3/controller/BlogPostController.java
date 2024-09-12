@@ -17,30 +17,30 @@ public class BlogPostController {
     @Autowired
     private BlogPostService blogPostService;
 
-    @GetMapping
-    public List<BlogPost> printAllBlogs(){
-        return this.blogPostService.findAllBlogs();
-    }
-
-    @GetMapping("/{blogId}")
-    public BlogPost findSingleBlog(@PathVariable int blogId){
-        return this.blogPostService.findById(blogId);
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public BlogPost saveNewBlogPost(@RequestBody BlogPost body){
-        return this.blogPostService.saveNewBlog(body);
-    }
-
-    @PutMapping("/{blogId}")
-    public BlogPost findAndUpdate(@PathVariable int blogId, @RequestBody BlogPost body){
-        return this.blogPostService.findAndUpdateBlog(blogId, body);
-    }
-
-    @DeleteMapping("/{blogId}")
-    public String findAndDelete(@PathVariable int blogId){
-        this.blogPostService.findAndDelete(blogId);
-        return "Blog " + blogId + " eliminato";
-    }
+//    @GetMapping
+//    public List<BlogPost> printAllBlogs(){
+//        return this.blogPostService.findAllBlogs();
+//    }
+//
+//    @GetMapping("/{blogId}")
+//    public BlogPost findSingleBlog(@PathVariable int blogId){
+//        return this.blogPostService.findById(blogId);
+//    }
+//
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public BlogPost saveNewBlogPost(@RequestBody BlogPost body){
+//        return this.blogPostService.saveNewBlog(body);
+//    }
+//
+//    @PutMapping("/{blogId}")
+//    public BlogPost findAndUpdate(@PathVariable int blogId, @RequestBody BlogPost body){
+//        return this.blogPostService.findAndUpdateBlog(blogId, body);
+//    }
+//
+//    @DeleteMapping("/{blogId}")
+//    public String findAndDelete(@PathVariable int blogId){
+//        this.blogPostService.findAndDelete(blogId);
+//        return "Blog " + blogId + " eliminato";
+//    }
 }

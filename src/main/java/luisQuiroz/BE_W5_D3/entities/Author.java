@@ -1,63 +1,33 @@
 package luisQuiroz.BE_W5_D3.entities;
 
 
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.List;
+import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "autori")
 public class Author {
-    private int id;
+    @Id
+    @GeneratedValue
+    @Setter(AccessLevel.NONE)
+    private UUID id;
+
     private String nome;
     private String cognome;
     private String dataDiNascita;
+    private String email;
     private String urlAvatar;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<BlogPost> listBlogs;
 
-    public Author() {
-    }
 
-    public Author(String nome, String cognome, String dataDiNascita) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.dataDiNascita = dataDiNascita;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public String getDataDiNascita() {
-        return dataDiNascita;
-    }
-
-    public void setDataDiNascita(String dataDiNascita) {
-        this.dataDiNascita = dataDiNascita;
-    }
-
-    public String getUrlAvatar() {
-        return urlAvatar;
-    }
-
-    public void setUrlAvatar(String urlAvatar) {
-        this.urlAvatar = urlAvatar;
-    }
 
 }

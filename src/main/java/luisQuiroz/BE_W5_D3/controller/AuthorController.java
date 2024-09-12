@@ -17,32 +17,67 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
+//    @GetMapping
+//    public List<Author> getAuthors(){
+//        return authorService.findAllAuthors();
+//    }
+//
+//    @GetMapping("/{authorId}")
+//    public Author pathParameterExample(@PathVariable int authorId){
+//        return this.authorService.findById(authorId);
+//    }
+//
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Author createNewAuthor(@RequestBody Author body){
+//        return this.authorService.saveAuthor(body);
+//    }
+//
+//    @PutMapping("/{authorId}")
+//    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+//    public Author updateAuthor(@PathVariable int authorId, @RequestBody Author body){
+//        return this.authorService.findAndUpdateAuthor(authorId, body);
+//    }
+//
+//    @DeleteMapping("/{authorId}")
+//    public String deleteAuthor(@PathVariable int authorId){
+//        this.authorService.findAndDeleteAuthor(authorId);
+//        return "Autore eliminato con successo";
+//    }
+
+
+    // * GET tutti gli autori
     @GetMapping
-    public List<Author> getAuthors(){
-        return authorService.findAllAuthors();
+    public List<Author> findAllAuthors() {
+        return this.authorService.findAll();
     }
 
+    // * GET singolo autore
     @GetMapping("/{authorId}")
-    public Author pathParameterExample(@PathVariable int authorId){
+    // Spring gestisce da solo il problema dell'UUID trasformandolo in una stringa
+    public Author findById(@PathVariable UUID authorId){
         return this.authorService.findById(authorId);
     }
 
+    // * POST crea nuovo autore
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Author createNewAuthor(@RequestBody Author body){
+    public Author saveAuthor(@RequestBody Author body) {
         return this.authorService.saveAuthor(body);
     }
 
+    // * PUT modifica autore per id
     @PutMapping("/{authorId}")
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    public Author updateAuthor(@PathVariable int authorId, @RequestBody Author body){
-        return this.authorService.findAndUpdateAuthor(authorId, body);
+    public Author findAndUpdate(@PathVariable UUID authorId, @RequestBody Author body){
+        return this.authorService.findAndUpdate(authorId, body);
     }
 
+
+    // * DELETE elimina autore per id
     @DeleteMapping("/{authorId}")
-    public String deleteAuthor(@PathVariable int authorId){
-        this.authorService.findAndDeleteAuthor(authorId);
-        return "Autore eliminato con successo";
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void findAndDelete(@PathVariable UUID authorId){
+        this.authorService.findAndDelete(authorId);
     }
 
 
