@@ -27,16 +27,17 @@ public class BlogPost {
     private int tempoDiLettura;
 
 
-    public BlogPost(String categoria, String titolo, String contenuto) {
+    public BlogPost(String categoria, String titolo, String contenuto, Author author) {
         this.categoria = categoria;
         this.titolo = titolo;
         this.contenuto = contenuto;
         final Random random = new Random();
         this.tempoDiLettura = random.nextInt(1, 300);
+        this.author = author;
     }
 
     @ManyToOne
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "author")
     private Author author;
 
 

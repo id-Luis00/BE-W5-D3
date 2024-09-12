@@ -3,6 +3,7 @@ package luisQuiroz.BE_W5_D3.controller;
 
 import jakarta.websocket.server.PathParam;
 import luisQuiroz.BE_W5_D3.entities.BlogPost;
+import luisQuiroz.BE_W5_D3.payloads.BlogPostsDTO;
 import luisQuiroz.BE_W5_D3.services.BlogPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,4 +44,16 @@ public class BlogPostController {
 //        this.blogPostService.findAndDelete(blogId);
 //        return "Blog " + blogId + " eliminato";
 //    }
+
+
+    @GetMapping
+    public List<BlogPost> findAllBlogs(){
+        return this.blogPostService.findAll();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public BlogPost saveNewBlog(@RequestBody BlogPostsDTO body){
+        return this.blogPostService.saveNewBlog(body);
+    }
 }

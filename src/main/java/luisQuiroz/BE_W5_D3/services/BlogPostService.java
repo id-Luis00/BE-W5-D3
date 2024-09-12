@@ -1,6 +1,12 @@
 package luisQuiroz.BE_W5_D3.services;
 
+import luisQuiroz.BE_W5_D3.controller.BlogPostController;
+import luisQuiroz.BE_W5_D3.entities.Author;
 import luisQuiroz.BE_W5_D3.entities.BlogPost;
+import luisQuiroz.BE_W5_D3.exceptions.BadRequestException;
+import luisQuiroz.BE_W5_D3.payloads.BlogPostsDTO;
+import luisQuiroz.BE_W5_D3.repositories.BlogPostsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,6 +15,11 @@ import java.util.Random;
 
 @Service
 public class BlogPostService {
+    @Autowired
+    private BlogPostsRepository blogPostsRepository;
+
+    @Autowired
+    private AuthorService authorService;
 
 //    List<BlogPost> allBlogs = new ArrayList<>();
 //
@@ -42,6 +53,20 @@ public class BlogPostService {
 //    public void findAndDelete(int blogId){
 //        this.allBlogs.remove(this.findById(blogId));
 //    }
+
+    public List<BlogPost> findAll(){
+        return this.blogPostsRepository.findAll();
+    }
+
+
+    public BlogPost saveNewBlog(BlogPostsDTO body){
+        if (this.blogPostsRepository.existsByTitolo(body.titolo())) throw new BadRequestException(body.titolo() + " Esiste già");
+        Author authorFound = this.authorService.findById(body.authorId());
+        BlogPost newBlog = new BlogPost(body.categoria(), body.titolo(), body.contenuto(), authorFound);
+        newBlog.setUrlCover("Url random...");
+        this.blogPostsRepository.save(newBlog);
+        return newBlog;
+    }
 
 
 }

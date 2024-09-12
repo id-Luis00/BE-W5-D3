@@ -1,6 +1,7 @@
 package luisQuiroz.BE_W5_D3.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Author {
     private String urlAvatar;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<BlogPost> listBlogs;
 
 

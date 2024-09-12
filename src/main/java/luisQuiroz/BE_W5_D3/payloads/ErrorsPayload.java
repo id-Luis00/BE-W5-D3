@@ -1,4 +1,4 @@
-package luisQuiroz.BE_W5_D3.exceptions;
+package luisQuiroz.BE_W5_D3.payloads;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

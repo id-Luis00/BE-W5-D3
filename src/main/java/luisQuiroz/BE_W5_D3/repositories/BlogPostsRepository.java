@@ -9,4 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface BlogPostsRepository extends JpaRepository<BlogPost, UUID> {
+    boolean existsByTitolo(String titolo);
+
 }
